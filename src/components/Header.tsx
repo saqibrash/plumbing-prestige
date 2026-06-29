@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { Menu, Phone, X, Siren } from "lucide-react";
+import { Menu, Phone, X } from "lucide-react";
 import { SITE } from "@/data/site";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import logoAsset from "@/assets/logo.png.asset.json";
 
 const nav = [
   { to: "/", label: "Home" },
@@ -19,13 +20,11 @@ export const Header = () => {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur">
       <div className="container-tight flex h-16 items-center justify-between gap-4 md:h-20">
-        <Link to="/" className="flex items-center gap-2 font-display text-lg font-bold text-primary md:text-xl">
-          <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-accent text-accent-foreground shadow-accent">
-            <Siren className="h-5 w-5" />
-          </span>
+        <Link to="/" className="flex items-center gap-3 font-display text-base font-bold text-primary md:text-lg" aria-label="Emergency Plumbing Ltd home">
+          <img src={logoAsset.url} alt="Emergency Plumbing Ltd logo" width={48} height={48} className="h-11 w-11 shrink-0 object-contain md:h-12 md:w-12" />
           <span className="leading-tight">
-            Emergency<span className="text-accent">.</span>
-            <span className="block text-xs font-semibold uppercase tracking-widest text-muted-foreground">Plumbing Ltd</span>
+            Emergency Plumbing
+            <span className="block text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground md:text-xs">24/7 South Wales</span>
           </span>
         </Link>
         <nav className="hidden items-center gap-7 lg:flex">

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Phone, MessageSquare, ShieldCheck, Clock, Star } from "lucide-react";
 import { SITE } from "@/data/site";
 import { Button } from "@/components/ui/button";
-import heroImg from "@/assets/hero-plumber.jpg";
+import heroImg from "@/assets/hero-tools.jpg";
 
 export const Hero = () => (
   <section className="relative overflow-hidden bg-hero-gradient text-primary-foreground">
@@ -50,7 +50,7 @@ export const Hero = () => (
       </div>
       <div className="relative">
         <div className="absolute -inset-4 rounded-[2rem] bg-accent/30 blur-3xl" aria-hidden />
-        <img src={heroImg} alt="Professional emergency plumber fixing a pipe in Cardiff" width={1536} height={1024} className="relative w-full rounded-2xl object-cover shadow-elevated" />
+        <img src={heroImg} alt="Professional plumbing tools and copper pipework used by Emergency Plumbing Ltd in Cardiff" width={1536} height={1024} className="relative w-full rounded-2xl object-cover shadow-elevated" />
         <div className="absolute -bottom-5 -left-5 hidden rounded-2xl bg-background p-4 text-primary shadow-elevated md:block">
           <div className="flex items-center gap-2">
             <div className="flex">{[...Array(5)].map((_, i) => <Star key={i} className="h-4 w-4 fill-gold text-gold" />)}</div>

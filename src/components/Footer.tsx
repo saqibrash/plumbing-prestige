@@ -1,13 +1,14 @@
 import { Link } from "react-router-dom";
-import { Phone, MapPin, Mail, Clock, Siren } from "lucide-react";
+import { Phone, MapPin, Mail, Clock } from "lucide-react";
 import { SITE, SERVICES, AREAS } from "@/data/site";
+import logoWhite from "@/assets/logo-white.png.asset.json";
 
 export const Footer = () => (
   <footer className="mt-24 bg-primary text-primary-foreground">
     <div className="container-tight grid gap-10 py-14 md:grid-cols-4">
       <div>
-        <div className="flex items-center gap-2 font-display text-lg font-bold">
-          <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-accent"><Siren className="h-5 w-5" /></span>
+        <div className="flex items-center gap-3 font-display text-lg font-bold">
+          <img src={logoWhite.url} alt="Emergency Plumbing Ltd" width={48} height={48} className="h-11 w-11 object-contain" />
           Emergency Plumbing Ltd
         </div>
         <p className="mt-4 text-sm text-primary-foreground/75">Trusted 24/7 emergency plumbers serving Cardiff, Rhondda and South Wales. Fast response, fully insured, transparent pricing.</p>
