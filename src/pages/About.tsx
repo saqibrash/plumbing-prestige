@@ -64,7 +64,7 @@ export default function About() {
         </div>
       </section>
 
-      <ReviewsSection limit={3} />
+      <ReviewsSection />
       <CTASection />
     </>
   );

@@ -6,6 +6,11 @@ export const SITE = {
   whatsappHref: "https://wa.me/447841785060",
   address: "26 Ynyscynon Road, Rhondda, United Kingdom, CF40 2LN",
   email: "info@emergencyplumbingltd.co.uk",
+  googleRating: 5.0,
+  googleReviewCount: 70,
+  googleBusinessName: "Flush Away Plumbing Ltd.",
+  googleReviewsUrl: "https://share.google/z8TEjI0p5SAnGQK8H",
+  googleWriteReviewUrl: "https://search.google.com/local/writereview?placeid=ChIJ____EGzuTktL6-7Q",
 };
 
 export type Service = {
@@ -353,16 +358,6 @@ export const SERVICES: Service[] = [
   },
 ];
 
-export const REVIEWS = [
-  { name: "Paul Agnew", text: "Had kitchen sink tap replaced. Job done within 2 hours of posting. More than happy with the new tap. Extremely polite and friendly professional service." },
-  { name: "Mrs Dawn Fenner", text: "Excellent service, definitely recommend. Professional job completed. Very quick service, with good communication throughout." },
-  { name: "Michael W", text: "I enquired over a bank holiday, the next day the toilet was fixed. Very good service." },
-  { name: "Joseph Williams", text: "Got straight back to me, found the issue straight away, explained what was needed and the cost. Top level service and work." },
-  { name: "Steph Robbins", text: "Great service and very efficient." },
-  { name: "Asta Griceviciene", text: "Work was done professionally, quickly and reliably." },
-  { name: "Michael Minahan", text: "Arrived at the time stated, quickly assessed the problem and explained fully how to resolve it." },
-  { name: "Veronica", text: "Very friendly and helped install my washing machine and dishwasher. Highly recommend." },
-];
 
 export const AREAS = [
   { name: "Cardiff", blurb: "Our busiest service area. Fast response across central Cardiff and surrounding suburbs for all emergency and planned plumbing work." },
