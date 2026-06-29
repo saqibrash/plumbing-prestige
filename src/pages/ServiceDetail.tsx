@@ -1,6 +1,7 @@
 import { Link, useParams, Navigate } from "react-router-dom";
 import { CheckCircle2, Phone, ArrowRight, AlertTriangle } from "lucide-react";
 import { SERVICES, SITE } from "@/data/site";
+import { SERVICE_IMAGES } from "@/data/service-images";
 import PageHero from "@/components/PageHero";
 import Seo from "@/components/Seo";
 import FaqAccordion from "@/components/FaqAccordion";
@@ -44,6 +45,7 @@ export default function ServiceDetail() {
       <section className="py-14 md:py-20">
         <div className="container-tight grid gap-12 lg:grid-cols-[1.6fr,1fr]">
           <div>
+            <img src={SERVICE_IMAGES[service.slug]} alt={`${service.title} by Emergency Plumbing Ltd`} width={1024} height={768} className="mb-8 w-full rounded-2xl object-cover shadow-card" loading="lazy" />
             <div className="rounded-2xl border border-accent/30 bg-accent/5 p-5 md:p-6">
               <div className="flex items-start gap-3">
                 <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-accent" />
