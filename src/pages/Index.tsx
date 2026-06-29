@@ -102,7 +102,7 @@ const Index = () => (
       </div>
     </section>
 
-    <ReviewsSection limit={6} />
+    <ReviewsSection />
 
     <section className="py-16 md:py-24">
       <div className="container-tight grid items-start gap-10 md:grid-cols-2">
