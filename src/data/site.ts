@@ -367,7 +367,6 @@ export const AREAS = [
   { name: "Pontypridd", blurb: "Regular service across Pontypridd and nearby areas for emergencies, repairs and installations." },
   { name: "Caerphilly", blurb: "Trusted plumbing help across Caerphilly and surrounding villages." },
   { name: "Barry", blurb: "Coverage across Barry and the Vale of Glamorgan for urgent and planned work." },
-  { name: "Bridgend", blurb: "We cover Bridgend and nearby towns subject to scheduling and distance." },
   { name: "Newport", blurb: "Available in Newport and surrounding areas for plumbing emergencies and repairs." },
   { name: "South Wales", blurb: "Other South Wales locations covered subject to availability — just give us a call." },
 ];
