@@ -1,8 +1,85 @@
-import { Link } from "react-router-dom";
-import { Phone, MessageSquare, ShieldCheck, Clock, Star } from "lucide-react";
-import { SITE } from "@/data/site";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Phone, ShieldCheck, Clock, Star } from "lucide-react";
+import { toast } from "sonner";
+import { z } from "zod";
+import { SITE, SERVICES } from "@/data/site";
 import { Button } from "@/components/ui/button";
-import heroImg from "@/assets/hero-tools.jpg";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+
+const heroSchema = z.object({
+  name: z.string().trim().min(1, "Name required").max(80),
+  phone: z.string().trim().min(7, "Phone required").max(30),
+  location: z.string().trim().min(1, "Location required").max(120),
+  service: z.string().min(1, "Choose a service"),
+});
+
+const HeroForm = () => {
+  const nav = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [service, setService] = useState("");
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const raw = { ...Object.fromEntries(new FormData(form)), service } as Record<string, string>;
+    const result = heroSchema.safeParse(raw);
+    if (!result.success) { toast.error(result.error.issues[0]?.message || "Please check the form"); return; }
+    const data = result.data;
+    setLoading(true);
+    try {
+      const serviceTitle = SERVICES.find((s) => s.slug === data.service)?.title || data.service;
+      const res = await fetch(SITE.formEndpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          _subject: `New plumbing lead — ${serviceTitle} (Hero form)`,
+          _template: "table",
+          _captcha: "false",
+          name: data.name,
+          phone: data.phone,
+          location: data.location,
+          service: serviceTitle,
+          source: "Homepage hero",
+        }),
+      });
+      if (!res.ok) throw new Error("send failed");
+      nav("/thank-you");
+    } catch {
+      toast.error("Could not send. Please call " + SITE.phoneDisplay);
+    } finally { setLoading(false); }
+  };
+  return (
+    <form onSubmit={onSubmit} className="relative rounded-2xl bg-background p-5 text-primary shadow-elevated md:p-6">
+      <div className="mb-3">
+        <div className="inline-flex items-center gap-2 rounded-full bg-accent/15 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-accent">Get help now</div>
+        <h2 className="mt-2 font-display text-xl font-bold md:text-2xl">Request a plumber — we'll call you back fast</h2>
+      </div>
+      <div className="grid gap-3">
+        <div className="grid gap-1.5"><Label htmlFor="h-name">Your Name *</Label><Input id="h-name" name="name" required maxLength={80} placeholder="John Smith" /></div>
+        <div className="grid gap-1.5"><Label htmlFor="h-phone">Phone Number *</Label><Input id="h-phone" name="phone" required type="tel" maxLength={30} placeholder="07…" /></div>
+        <div className="grid gap-1.5"><Label htmlFor="h-loc">Location / Town *</Label><Input id="h-loc" name="location" required maxLength={120} placeholder="Cardiff, Rhondda…" /></div>
+        <div className="grid gap-1.5">
+          <Label>Service Needed *</Label>
+          <Select value={service} onValueChange={setService}>
+            <SelectTrigger><SelectValue placeholder="Choose a service" /></SelectTrigger>
+            <SelectContent>
+              {SERVICES.map((s) => (<SelectItem key={s.slug} value={s.slug}>{s.title}</SelectItem>))}
+              <SelectItem value="other">Other / Not sure</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+        <Button type="submit" size="lg" disabled={loading} className="mt-1 bg-accent text-accent-foreground hover:bg-accent-glow">
+          {loading ? "Sending…" : "Request a Plumber"}
+        </Button>
+        <a href={SITE.phoneHref} className="text-center text-sm font-semibold text-primary hover:text-accent">
+          Or call now: <span className="text-accent">{SITE.phoneDisplay}</span>
+        </a>
+      </div>
+    </form>
+  );
+};
 
 export const Hero = () => (
   <section className="relative overflow-hidden bg-hero-gradient text-primary-foreground">
@@ -22,12 +99,9 @@ export const Hero = () => (
         <p className="mt-5 max-w-xl text-base text-primary-foreground/85 md:text-lg">
           Fast local plumbing help for leaks, blocked drains, burst pipes, toilet issues, boiler problems and urgent repairs. We aim to respond within 30 to 60 minutes.
         </p>
-        <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+        <div className="mt-7">
           <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent-glow shadow-accent animate-pulse-ring">
             <a href={SITE.phoneHref}><Phone className="mr-2 h-5 w-5" /> Call Now: {SITE.phoneDisplay}</a>
-          </Button>
-          <Button asChild size="lg" variant="outline" className="border-primary-foreground/30 bg-transparent text-primary-foreground hover:bg-primary-foreground hover:text-primary">
-            <Link to="/contact"><MessageSquare className="mr-2 h-5 w-5" /> Request a Plumber</Link>
           </Button>
         </div>
         <div className="mt-8 grid grid-cols-3 gap-3 text-sm md:max-w-md">
@@ -49,14 +123,9 @@ export const Hero = () => (
         </div>
       </div>
       <div className="relative">
-        <div className="absolute -inset-4 rounded-[2rem] bg-accent/30 blur-3xl" aria-hidden />
-        <img src={heroImg} alt="Professional plumbing tools and copper pipework used by Emergency Plumbing Ltd in Cardiff" width={1536} height={1024} className="relative w-full rounded-2xl object-cover shadow-elevated" />
-        <div className="absolute -bottom-5 -left-5 hidden rounded-2xl bg-background p-4 text-primary shadow-elevated md:block">
-          <div className="flex items-center gap-2">
-            <div className="flex">{[...Array(5)].map((_, i) => <Star key={i} className="h-4 w-4 fill-gold text-gold" />)}</div>
-            <span className="text-sm font-semibold">Google Reviewed</span>
-          </div>
-          <div className="mt-1 text-xs text-muted-foreground">Verified customers across South Wales</div>
+        <div className="absolute -inset-4 rounded-[2rem] bg-accent/20 blur-3xl" aria-hidden />
+        <div className="relative">
+          <HeroForm />
         </div>
       </div>
     </div>
