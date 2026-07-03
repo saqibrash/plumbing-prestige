@@ -25,7 +25,7 @@ export default function About() {
             <h2 className="font-display text-3xl font-bold text-primary md:text-4xl">Who we are</h2>
             <div className="mt-5 space-y-4 text-foreground/80">
               <p>Emergency Plumbing Ltd is a local plumbing company built around one simple idea — when something goes wrong, you should get fast, honest, professional help.</p>
-              <p>We help homes and businesses across Cardiff, Rhondda, Pontypridd, Caerphilly, Barry, Bridgend, Newport and nearby South Wales areas with everything from urgent plumbing emergencies to everyday repairs.</p>
+              <p>We help homes and businesses across Cardiff, Rhondda, Pontypridd, Caerphilly, Barry, Newport and nearby South Wales areas with everything from urgent plumbing emergencies to everyday repairs.</p>
               <p>That includes burst pipes, blocked drains, leaks, toilets, taps, washing machine and dishwasher plumbing, bathrooms and boiler related issues.</p>
               <p>We're a local team, locally based — so we know the area, we respond quickly and we care about the reputation we're building one happy customer at a time.</p>
             </div>

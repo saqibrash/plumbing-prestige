@@ -6,6 +6,8 @@ export const SITE = {
   whatsappHref: "https://wa.me/447841785060",
   address: "26 Ynyscynon Road, Rhondda, United Kingdom, CF40 2LN",
   email: "info@emergencyplumbingltd.co.uk",
+  leadEmail: "nikos_91@live.com",
+  formEndpoint: "https://formsubmit.co/ajax/nikos_91@live.com",
   googleRating: 5.0,
   googleReviewCount: 70,
   googleBusinessName: "Flush Away Plumbing Ltd.",
@@ -365,7 +367,6 @@ export const AREAS = [
   { name: "Pontypridd", blurb: "Regular service across Pontypridd and nearby areas for emergencies, repairs and installations." },
   { name: "Caerphilly", blurb: "Trusted plumbing help across Caerphilly and surrounding villages." },
   { name: "Barry", blurb: "Coverage across Barry and the Vale of Glamorgan for urgent and planned work." },
-  { name: "Bridgend", blurb: "We cover Bridgend and nearby towns subject to scheduling and distance." },
   { name: "Newport", blurb: "Available in Newport and surrounding areas for plumbing emergencies and repairs." },
   { name: "South Wales", blurb: "Other South Wales locations covered subject to availability — just give us a call." },
 ];
