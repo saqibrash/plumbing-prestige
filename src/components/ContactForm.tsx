@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { SERVICES } from "@/data/site";
+import { SERVICES, SITE } from "@/data/site";
 
 const schema = z.object({
   name: z.string().trim().min(1, "Name required").max(80),
@@ -25,14 +25,38 @@ export const ContactForm = ({ defaultService }: { defaultService?: string }) => 
   const [service, setService] = useState(defaultService || "");
   const [urgency, setUrgency] = useState("");
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
     const data = { ...Object.fromEntries(new FormData(form)), service, urgency };
     const result = schema.safeParse(data);
     if (!result.success) { toast.error(result.error.issues[0]?.message || "Please check the form"); return; }
     setLoading(true);
-    setTimeout(() => { setLoading(false); nav("/thank-you"); }, 600);
+    try {
+      const serviceTitle = SERVICES.find((s) => s.slug === service)?.title || service;
+      const res = await fetch(SITE.formEndpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          _subject: `New plumbing lead — ${serviceTitle} (${data.urgency})`,
+          _template: "table",
+          _captcha: "false",
+          name: data.name,
+          phone: data.phone,
+          email: data.email || "(not provided)",
+          location: data.location,
+          service: serviceTitle,
+          urgency: data.urgency,
+          message: data.message || "(none)",
+        }),
+      });
+      if (!res.ok) throw new Error("send failed");
+      nav("/thank-you");
+    } catch {
+      toast.error("Could not send. Please call us on " + SITE.phoneDisplay);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
