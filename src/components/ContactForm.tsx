@@ -28,9 +28,10 @@ export const ContactForm = ({ defaultService }: { defaultService?: string }) => 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
-    const data = { ...Object.fromEntries(new FormData(form)), service, urgency };
-    const result = schema.safeParse(data);
+    const raw = { ...Object.fromEntries(new FormData(form)), service, urgency } as Record<string, string>;
+    const result = schema.safeParse(raw);
     if (!result.success) { toast.error(result.error.issues[0]?.message || "Please check the form"); return; }
+    const data = result.data;
     setLoading(true);
     try {
       const serviceTitle = SERVICES.find((s) => s.slug === service)?.title || service;
