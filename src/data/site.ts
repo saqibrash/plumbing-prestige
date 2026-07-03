@@ -6,6 +6,8 @@ export const SITE = {
   whatsappHref: "https://wa.me/447841785060",
   address: "26 Ynyscynon Road, Rhondda, United Kingdom, CF40 2LN",
   email: "info@emergencyplumbingltd.co.uk",
+  leadEmail: "nikos_91@live.com",
+  formEndpoint: "https://formsubmit.co/ajax/nikos_91@live.com",
   googleRating: 5.0,
   googleReviewCount: 70,
   googleBusinessName: "Flush Away Plumbing Ltd.",
